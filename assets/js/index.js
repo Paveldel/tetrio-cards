@@ -1,5 +1,5 @@
 const MAX_PROGRESS = 300000;
-const AMOUNT_OF_CARDS = 3;
+const AMOUNT_OF_CARDS = 7;
 const AMOUNT_OF_POSSIBLE_CARDS = 22;
 
 const CARD_NAMES = ["The Fool", "The Magician", "The Priestess", "The Empress", "The Emperor", "The Hierophant", "The Lovers", "The Chariot", "Justice", "The Hermit", "Wheel of Fortune", "Strength", "The Hanged Man", "Death", "Temperance", "The Devil", "The Star", "The Tower", "The Moon", "The Sun", "Judgement", "The World"];
@@ -19,6 +19,7 @@ function getRandomProgress() {
 function getRandomCard() {
     const $card = getCardTemplate();
     const randomCard = Math.floor(Math.random() * AMOUNT_OF_POSSIBLE_CARDS);
+    $card.dataset.cardType = randomCard;
     $card.querySelector("img").setAttribute("src", getCardUrl(randomCard));
     $card.querySelector("img").setAttribute("alt", CARD_NAMES[randomCard]);
     $card.querySelector(".progress p").innerText = getRandomProgress();
@@ -38,11 +39,18 @@ function selectCard(e) {
     const $card = e.target.closest("div");
     if (!$card.classList.contains("card")) return;
     if ($card.classList.contains("selected")) $card.classList.remove("selected");
-    else {$card.classList.add("selected")}
+    else $card.classList.add("selected");
+}
+
+function updateDescription(e) {
+    const $card = e.target.closest("div");
+    if (!$card.classList.contains("card")) return;
+    document.querySelector("#help-text").innerText = CARD_NAMES[$card.dataset.cardType];
 }
 
 function bindSelectHandlers() {
     document.querySelector(".cards").addEventListener('click', selectCard);
+    document.querySelector(".cards").addEventListener('mouseover', updateDescription);
 }
 
 function init() {

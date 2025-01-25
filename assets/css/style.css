@@ -15,6 +15,7 @@ main {
 
     p {
         position: relative;
+        font-weight: bold;
         bottom: 6rem;
         right: 0;
         padding: 2rem;
