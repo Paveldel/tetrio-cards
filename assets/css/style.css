@@ -95,3 +95,37 @@ main {
         width: 12rem;
     }
 }
+
+.shake {
+    animation: shakex infinite 0.25s linear, shakey infinite 0.2s linear;
+}
+
+@keyframes shakex {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(0.25rem);
+    }
+    75% {
+        transform: translateX(-0.25rem);
+    }
+    1000% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes shakey {
+    0% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(0.25rem);
+    }
+    75% {
+        transform: translateY(-0.25rem);
+    }
+    1000% {
+        transform: translateY(0);
+    }
+}
