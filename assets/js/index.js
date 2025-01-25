@@ -1,11 +1,11 @@
 const MAX_PROGRESS = 300000;
-const AMOUNT_OF_CARDS = 7;
+const AMOUNT_OF_CARDS = 14;
 const AMOUNT_OF_POSSIBLE_CARDS = 22;
 const DELAY_BEFORE_HOLD = 1500;
 
 const CARD_NAMES = ["The Fool", "The Magician", "The Priestess", "The Empress", "The Emperor", "The Hierophant", "The Lovers", "The Chariot", "Justice", "The Hermit", "Wheel of Fortune", "Strength", "The Hanged Man", "Death", "Temperance", "The Devil", "The Star", "The Tower", "The Moon", "The Sun", "Judgement", "The World"];
 
-let isMouseDown = false;
+let holdTimer;
 
 function getCardTemplate() {
     return document.querySelector("#card").content.firstElementChild.cloneNode(true);
@@ -53,7 +53,6 @@ function updateDescription(e) {
 }
 
 function reverseCard() {
-    isMouseDown = false;
     const $heldCard = document.querySelector(".shake");
     if ($heldCard) {
         $heldCard.classList.remove("shake");
@@ -65,18 +64,17 @@ function watchHoldCard(e) {
     const $card = e.target.closest("div");
     if (!$card.classList.contains("card")) return;
     $card.classList.add("shake");
-    isMouseDown = true;
-    setTimeout(() => {if (isMouseDown) reverseCard()}, DELAY_BEFORE_HOLD)
+    holdTimer = setTimeout(reverseCard, DELAY_BEFORE_HOLD);
 }
 
 function resetHold() {
-    isMouseDown = false;
+    clearTimeout(holdTimer);
     const $heldCard = document.querySelector(".shake");
     if ($heldCard) $heldCard.classList.remove("shake");
 }
 
 function bindSelectHandlers() {
-    document.querySelector(".cards").addEventListener('mousedown', selectCard);
+    document.querySelector(".cards").addEventListener('click', selectCard);
     document.querySelector(".cards").addEventListener('mousedown', watchHoldCard);
     document.querySelector(".cards").addEventListener('mouseup', resetHold);
     document.querySelector(".cards").addEventListener('mouseover', updateDescription);
