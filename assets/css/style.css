@@ -1,12 +1,14 @@
 body {
     background: #230a0a;
+    --main-color: #f4c256;
 }
 
 main {
     width: 70%;
     margin: 7rem auto auto;
-    background: #f4c256;
+    background: var(--main-color);
     height: 20rem;
+    transition: background-color 1s linear;
 }
 
 .bottom {
@@ -14,6 +16,7 @@ main {
     height: 0;
 
     p {
+        transition: background-color 1s linear, border-color 1s linear;
         position: relative;
         font-weight: bold;
         bottom: 6rem;
@@ -23,13 +26,18 @@ main {
         font-family: sans-serif;
         color: white;
         font-size: 2.5rem;
-        background: #f4c256;
-        border: solid 0.2rem #b89342;
+        background: var(--main-color);
+        border: hsl(from var(--main-color) h s calc(l / 2)) solid 0.2rem;
     }
 }
 
 .card {
-    transition: translate 0.5s ease-in-out, padding-left 0.5s ease-in-out, padding-right 0.5s ease-in-out, width 0.5s linear;
+    transform-origin: 50% 50%;
+    transition: translate 0.5s ease-in-out,
+    padding 0.5s ease-in-out,
+    width 0.5s linear,
+    opacity 1s linear,
+    rotate 1s linear;
 
     &:hover {
         .progress {
@@ -92,7 +100,7 @@ main {
     }
 
     div:hover, div:last-child, div:has( + :hover) {
-        width: 12rem;
+        width: 10rem;
     }
 }
 
@@ -127,5 +135,28 @@ main {
     }
     1000% {
         transform: translateY(0);
+    }
+}
+
+main:has(.reverse) {
+    --main-color: #3d93da;
+
+    .card:not(.reverse) {
+        opacity: 0;
+        width: 0;
+    }
+
+    .reverse {
+        rotate: 180deg;
+        padding-top: 6rem;
+        width: 10rem;
+
+        &:hover {
+            translate: 0 0;
+        }
+
+        .progress {
+            display: none;
+        }
     }
 }
