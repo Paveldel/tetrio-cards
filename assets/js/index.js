@@ -1,5 +1,5 @@
 const MAX_PROGRESS = 300000;
-const AMOUNT_OF_CARDS = 7;
+const AMOUNT_OF_CARDS = 3;
 const AMOUNT_OF_POSSIBLE_CARDS = 22;
 
 const CARD_NAMES = ["The Fool", "The Magician", "The Priestess", "The Empress", "The Emperor", "The Hierophant", "The Lovers", "The Chariot", "Justice", "The Hermit", "Wheel of Fortune", "Strength", "The Hanged Man", "Death", "Temperance", "The Devil", "The Star", "The Tower", "The Moon", "The Sun", "Judgement", "The World"];
@@ -34,8 +34,20 @@ function displaySomeCards() {
     cards.forEach(card => $container.insertAdjacentElement('beforeend', card))
 }
 
+function selectCard(e) {
+    const $card = e.target.closest("div");
+    if (!$card.classList.contains("card")) return;
+    if ($card.classList.contains("selected")) $card.classList.remove("selected");
+    else {$card.classList.add("selected")}
+}
+
+function bindSelectHandlers() {
+    document.querySelector(".cards").addEventListener('click', selectCard);
+}
+
 function init() {
     displaySomeCards();
+    bindSelectHandlers();
 }
 
 init();
