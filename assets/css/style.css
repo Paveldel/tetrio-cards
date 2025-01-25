@@ -1,0 +1,66 @@
+main {
+    width: 70%;
+    margin: 7rem auto auto;
+    background: #f4c256;
+}
+
+.bottom {
+    width: 100%;
+}
+
+.card {
+    transition: translate 0.5s ease-in-out, padding-left 0.5s ease-in-out, padding-right 0.5s ease-in-out, width 0.5s linear;
+
+    &:hover {
+        .progress {
+            display: block;
+            position: relative;
+            top: -2.5rem;
+            height: 0;
+            width: 10rem;
+            text-align: center;
+
+            p {
+                padding: 0.5rem;
+                border-radius: 0.25rem;
+                color: white;
+                background: black;
+            }
+        }
+
+        translate: 0 -3rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        padding-bottom: 1rem;
+    }
+
+    .progress {
+        display: none;
+    }
+
+    img {
+        width: 10rem;
+    }
+}
+
+.cards {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 60%;
+
+    transition: width 0.5s ease-in-out;
+
+    &:hover {
+        width: 80%;
+    }
+
+    div {
+        width: 3rem;
+    }
+
+    div:hover, div:last-child, div:has( + :hover) {
+        width: 12rem;
+    }
+}
