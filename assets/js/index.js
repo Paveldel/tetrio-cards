@@ -43,6 +43,7 @@ function selectCard(e) {
     if (!$card.classList.contains("card")) return;
     if ($card.classList.contains("selected")) $card.classList.remove("selected");
     else $card.classList.add("selected");
+    if ($card.classList.contains("reverse")) $card.classList.remove("reverse");
 }
 
 function updateDescription(e) {
@@ -51,10 +52,21 @@ function updateDescription(e) {
     document.querySelector("#help-text").innerText = CARD_NAMES[$card.dataset.cardType];
 }
 
+function reverseCard() {
+    isMouseDown = false;
+    const $heldCard = document.querySelector(".shake");
+    if ($heldCard) {
+        $heldCard.classList.remove("shake");
+        $heldCard.classList.add("reverse");
+    }
+}
+
 function watchHoldCard(e) {
     const $card = e.target.closest("div");
     if (!$card.classList.contains("card")) return;
     $card.classList.add("shake");
+    isMouseDown = true;
+    setTimeout(() => {if (isMouseDown) reverseCard()}, DELAY_BEFORE_HOLD)
 }
 
 function resetHold() {
@@ -64,7 +76,7 @@ function resetHold() {
 }
 
 function bindSelectHandlers() {
-    document.querySelector(".cards").addEventListener('click', selectCard);
+    document.querySelector(".cards").addEventListener('mousedown', selectCard);
     document.querySelector(".cards").addEventListener('mousedown', watchHoldCard);
     document.querySelector(".cards").addEventListener('mouseup', resetHold);
     document.querySelector(".cards").addEventListener('mouseover', updateDescription);
