@@ -41,9 +41,12 @@ function displaySomeCards() {
 function selectCard(e) {
     const $card = e.target.closest("div");
     if (!$card.classList.contains("card")) return;
+    if ($card.classList.contains("reverse")) {
+        $card.classList.remove("reverse");
+        return;
+    }
     if ($card.classList.contains("selected")) $card.classList.remove("selected");
     else $card.classList.add("selected");
-    if ($card.classList.contains("reverse")) $card.classList.remove("reverse");
 }
 
 function updateDescription(e) {
@@ -55,6 +58,7 @@ function updateDescription(e) {
 function reverseCard() {
     const $heldCard = document.querySelector(".shake");
     if ($heldCard) {
+        $heldCard.classList.remove("selected");
         $heldCard.classList.remove("shake");
         $heldCard.classList.add("reverse");
     }
