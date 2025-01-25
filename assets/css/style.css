@@ -59,12 +59,15 @@ main {
     }
 
     img {
+        border-radius: 0.5rem;
         width: 10rem;
         box-shadow: #222222 0.5rem 0.5rem 1rem;
+        transition: transform 0.25s linear;
     }
 
     &.selected {
         img {
+            transform: rotateY(360deg);
             box-shadow: #d7fffb 0 0 2.5rem;
         }
     }
